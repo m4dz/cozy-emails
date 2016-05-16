@@ -139,18 +139,22 @@ module.exports = React.createClass
                                 isMailbox       : @state.isMailbox
                                 isLoading       : @state.isLoading
 
-                            if @state.isMailbox and @state.messageID
-                                Conversation
-                                    ref             : "conversation"
-                                    key             : "conversation-#{@state.messageID}"
-                                    messageID       : @state.messageID
-                                    conversationID  : message?.get 'conversationID'
-                                    subject         : message?.get 'subject'
-                                    conversation    : @state.conversation
-                            else
-                                section
-                                    'key'          : 'placeholder'
-                                    'aria-expanded': false
+                        if @state.isMailbox and @state.messageID
+                            Conversation
+                                ref             : "conversation"
+                                key             : "conversation-#{@state.messageID}"
+                                messageID       : @state.messageID
+                                conversationID  : message?.get 'conversationID'
+                                subject         : message?.get 'subject'
+                                conversation    : @state.conversation
+                        else
+                            section
+                                'key'          : 'placeholder'
+                                'aria-expanded': false
+
+            if @state.action is AccountActions.CREATE
+                AccountWizardCreation
+                    hasDefaultAccount: RouterGetter.getAccountID()?
 
             # Display feedback
             Modal @state.modal if @state.modal?
